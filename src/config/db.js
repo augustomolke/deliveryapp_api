@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 mongoose.connect(
-  "mongodb+srv://omolke:Bento16*@cluster-deliveryapp.twnsl.mongodb.net/test",
+  "mongodb+srv://omolke:12345@cluster-deliveryapp.twnsl.mongodb.net/test",
   {
     useNewUrlParser: true,
   }
