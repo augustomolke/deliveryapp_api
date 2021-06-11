@@ -16,6 +16,6 @@ db.on("error", function (error) {
 
 require("./src/config/routes")(app);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("app running on port 3000");
 }); //start no servidor (porta)
