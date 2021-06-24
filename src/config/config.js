@@ -1,6 +1,6 @@
 var config = {
-  secret: "49fb775afa045a8d97a4ddba26c743cb",
-  timer: 1562271258,
+  secret: process.env.SECRET,
+  timer: process.env.TIMER,
 };
 
 module.exports = config;

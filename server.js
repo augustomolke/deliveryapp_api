@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const db = require("./src/config/db.js");
 const app = express();
