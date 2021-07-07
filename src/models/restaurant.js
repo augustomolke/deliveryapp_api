@@ -8,6 +8,9 @@ let restaurantSchema = new Schema({
   name: String,
   ownerName: String,
   address: String,
+  freight: Number,
+  rating: Number,
+  description: String,
   products: [
     {
       type: Schema.Types.ObjectId,

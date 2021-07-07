@@ -76,8 +76,18 @@ exports.getRestaurants = async (request, response) => {
 
 exports.createRestaurant = async (request, response) => {
   try {
-    const { name, owner, address, email, user, products } = request.body;
-    const newRestaurant = { name, owner, address, email, user, products };
+    const { name, owner, address, email, user, products, rating, freight } =
+      request.body;
+    const newRestaurant = {
+      name,
+      owner,
+      address,
+      email,
+      user,
+      products,
+      rating,
+      freight,
+    };
     const restaurant = await Restaurant.create(newRestaurant);
     if (!restaurant) {
       response.status(StatusCode.NOT_FOUND).send({
