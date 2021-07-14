@@ -3,6 +3,13 @@ const db = require("./src/config/db.js");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINAIRY_KEY,
+  api_secret: process.env.CLOUDINAIRY_SECRET,
+});
 
 const app = express();
 
@@ -38,6 +45,8 @@ app.use(function (req, res, next) {
 
 require("./src/config/routes")(app);
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log("app running on port 3000");
+let port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log("app running on port " + port);
 }); //start no servidor (porta)

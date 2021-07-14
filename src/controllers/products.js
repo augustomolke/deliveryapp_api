@@ -1,21 +1,47 @@
 const Product = require("../models/product");
 const StatusCode = require("../Utils/statusCode");
+
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
+
 exports.createProduct = async (request, response) => {
   try {
-    const { name, price, image, description, quantity, category } =
+    let { name, price, image, description, quantity, category, file } =
       request.body;
-    const newProd = { name, price, image, description, quantity, category };
-    const product = await Product.create(newProd);
-    if (!product) {
-      response.status(StatusCode.NOT_FOUND).send({
-        message: "An error has occurred",
+
+    file = file.split(";base64,").pop();
+
+    fs.writeFile("image.png", file, { encoding: "base64" }, function (err) {
+      if (err) return res.status(400).send("erro to create the file");
+      cloudinary.uploader.upload("image.png", async function (error, result) {
+        if (error) {
+          return res.status(400).send("erro to upload image to the cloudinary");
+        }
+        var prodPicture = result.url;
+
+        const newProd = {
+          name,
+          price,
+          image,
+          description,
+          quantity,
+          category,
+          prodPicture,
+        };
+
+        const product = await Product.create(newProd);
+        if (!product) {
+          response.status(StatusCode.NOT_FOUND).send({
+            message: "An error has occurred",
+          });
+        } else {
+          response.status(StatusCode.CREATED_STATUS).send({
+            message: "Product Created created",
+            product: newProd,
+          });
+        }
       });
-    } else {
-      response.status(StatusCode.CREATED_STATUS).send({
-        message: "User created",
-        product: newProd,
-      });
-    }
+    });
   } catch (error) {
     response.status(StatusCode.BAD_REQUEST).send({
       message: error.message,

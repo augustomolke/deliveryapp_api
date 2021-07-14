@@ -76,8 +76,17 @@ exports.getRestaurants = async (request, response) => {
 
 exports.createRestaurant = async (request, response) => {
   try {
-    const { name, owner, address, email, user, products, rating, freight } =
-      request.body;
+    const {
+      name,
+      owner,
+      address,
+      email,
+      user,
+      products,
+      rating,
+      freight,
+      description,
+    } = request.body;
     const newRestaurant = {
       name,
       owner,
@@ -87,6 +96,7 @@ exports.createRestaurant = async (request, response) => {
       products,
       rating,
       freight,
+      description,
     };
     const restaurant = await Restaurant.create(newRestaurant);
     if (!restaurant) {
